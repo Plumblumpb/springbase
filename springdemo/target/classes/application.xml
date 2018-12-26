@@ -4,4 +4,22 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
 
     <bean id="messageService" class="service.MessageServiceImpl"/>
+
+    <bean id="exampleBean" class="entity.ExampleBean"/>
+
+    <bean id="templateBean" name="name" class="entity.MyTemplateBean"
+          scope="singleton" lazy-init="true" init-method="init" destroy-method="cleanUp">
+
+        <!-- 可以用下面三种形式指定构造参数 -->
+        <constructor-arg name="id" value="123"></constructor-arg>
+        <constructor-arg name="name" value="test"></constructor-arg>
+        <!--<constructor-arg type="int" value="7500000"/>-->
+        <!--<constructor-arg index="0" value="7500000"/>-->
+
+        <!-- property 的几种情况 -->
+        <property name="exampleBean">
+            <ref bean="exampleBean"/>
+        </property>
+        <property name="integerProperty" value="1"/>
+    </bean>
 </beans>

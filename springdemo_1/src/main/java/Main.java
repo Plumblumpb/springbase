@@ -1,4 +1,7 @@
+import config.MyConfig;
+import entity.MyTemplateBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.MessageService;
 
@@ -11,14 +14,15 @@ public class Main {
 
     public static void main(String[] args) {
         // 用我们的配置文件来启动一个 ApplicationContext
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application.xml");
 //        ApplicationContext context1 = new FileSystemXmlApplicationContext("classpath:application.xml");
-//        ApplicationContext context2 = new AnnotationConfigApplicationContext("classpath:application.xml");
+        ApplicationContext context2 = new AnnotationConfigApplicationContext(MyConfig.class);
 
         System.out.println("context 启动成功");
 
         // 从 context 中取出我们的 Bean，而不是用 new service.MessageServiceImpl() 这种方式
-        MessageService messageService = context.getBean(MessageService.class);
+        MessageService messageService = context2.getBean(MessageService.class);
+        MyTemplateBean myTemplateBean = context2.getBean(MyTemplateBean.class);
         // 这句将输出: hello world
         System.out.println(messageService.getMessage());
     }
