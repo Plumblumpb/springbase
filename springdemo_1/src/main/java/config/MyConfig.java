@@ -1,10 +1,9 @@
 package config;
 
 import entity.ExampleBean;
-import entity.MyTemplateBean;
+import entity.TemplateBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import service.MessageService;
 import service.MessageServiceImpl;
@@ -24,11 +23,11 @@ public class MyConfig {
 
     @Bean(initMethod = "init", destroyMethod = "cleanUp")
     @Scope("singleton")//prototype
-    public MyTemplateBean myTemplateBean() {
-        MyTemplateBean myTemplateBean = new MyTemplateBean(123,"test");
-        myTemplateBean.setExampleBean(exampleBean());
-        myTemplateBean.setIntegerProperty(123);
-        return myTemplateBean;
+    public TemplateBean myTemplateBean() {
+        TemplateBean templateBean = new TemplateBean(123,"test");
+        templateBean.setExampleBean(exampleBean());
+        templateBean.setIntegerProperty(123);
+        return templateBean;
     }
 
     @Bean

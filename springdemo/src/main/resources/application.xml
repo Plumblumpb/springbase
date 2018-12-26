@@ -7,7 +7,7 @@
 
     <bean id="exampleBean" class="entity.ExampleBean"/>
 
-    <bean id="templateBean" name="name" class="entity.MyTemplateBean"
+    <bean id="templateBean" name="name" class="entity.TemplateBean"
           scope="singleton" lazy-init="true" init-method="init" destroy-method="cleanUp">
 
         <!-- 可以用下面三种形式指定构造参数 -->

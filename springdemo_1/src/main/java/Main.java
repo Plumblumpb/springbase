@@ -1,8 +1,7 @@
 import config.MyConfig;
-import entity.MyTemplateBean;
+import entity.TemplateBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.MessageService;
 
 /**
@@ -22,7 +21,7 @@ public class Main {
 
         // 从 context 中取出我们的 Bean，而不是用 new service.MessageServiceImpl() 这种方式
         MessageService messageService = context2.getBean(MessageService.class);
-        MyTemplateBean myTemplateBean = context2.getBean(MyTemplateBean.class);
+        TemplateBean templateBean = context2.getBean(TemplateBean.class);
         // 这句将输出: hello world
         System.out.println(messageService.getMessage());
     }

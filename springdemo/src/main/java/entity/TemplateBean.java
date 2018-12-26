@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Component
-public class MyTemplateBean {
+public class TemplateBean {
     private String name;
     private Integer id;
 
-    public MyTemplateBean(Integer id,String name ) {
+    public TemplateBean(Integer id, String name ) {
         super();
         this.name = name;
         this.id = id;
     }
-    public MyTemplateBean(){
+    public TemplateBean(){
 
     }
 
