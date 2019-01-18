@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+
+    <bean id="foodService"  class="service.Impl.FoodServiceImpl"/>
+    <bean id="logBeforeAdvice" class="aop.LogBeforeAdvice"/>
+    <bean id="logRetureAdvice" class="aop.LogRetureAdvice"/>
+
+    <!--advisor，方法拦截器-->
+    <bean id="logAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <!--advisor实例的内部会有一个advice-->
+        <property name="advice" ref="logBeforeAdvice"/>
+        <!--只有下面的方法会被拦截-->
+        <property name="mappedNames" value="makeChicken,makeFish"/>
+    </bean>
+    <!--代理类-->
+    <bean id="foodProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--代理接口-->
+        <property name="proxyInterfaces">
+            <list>
+                <value>service.FoodService</value>
+            </list>
+        </property>
+        <!--代理具体实现类-->
+        <property name="target" ref="foodService"/>
+
+        <!--配置拦截器，可以配置advice，advisor，interceptor-->
+        <property name="interceptorNames">
+            <!--<list>-->
+                <!--<value>logBeforeAdvice</value>-->
+                <!--<value>logRetureAdvice</value>-->
+            <!--</list>-->
+            <list>
+                <value>logAdvisor</value>
+                <value>logRetureAdvice</value>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>
