@@ -7,16 +7,23 @@
     <bean id="logBeforeAdvice" class="aop.LogBeforeAdvice"/>
     <bean id="logRetureAdvice" class="aop.LogRetureAdvice"/>
 
-    <!--advisor，方法拦截器-->
-    <bean id="logAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+    <!--&lt;!&ndash;advisor，方法拦截器1&ndash;&gt;-->
+    <!--<bean id="logAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">-->
+        <!--&lt;!&ndash;advisor实例的内部会有一个advice&ndash;&gt;-->
+        <!--<property name="advice" ref="logBeforeAdvice"/>-->
+        <!--&lt;!&ndash;只有下面的方法会被拦截&ndash;&gt;-->
+        <!--<property name="mappedNames" value="makeChicken,makeFish"/>-->
+    <!--</bean>-->
+    <!--advisor，方法拦截器2-->
+    <bean id="logAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
         <!--advisor实例的内部会有一个advice-->
         <property name="advice" ref="logBeforeAdvice"/>
         <!--只有下面的方法会被拦截-->
-        <property name="mappedNames" value="makeChicken,makeFish"/>
+        <property name="pattern" value="service.Impl.*"/>
     </bean>
-    <!--代理类-->
+    <!--代理类方式1-->
     <bean id="foodProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <!--代理接口-->
+        <!--代理接口需要扫描的包-->
         <property name="proxyInterfaces">
             <list>
                 <value>service.FoodService</value>
@@ -37,6 +44,12 @@
             </list>
         </property>
     </bean>
+    <!--代理类方式1-->
+
+
+
+
+
 
 
 </beans>

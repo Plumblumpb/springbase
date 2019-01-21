@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--开启 @AspectJ 的注解配置-->
+    <!--@Aspect 注解的 bean 都会被 Spring 当做用来实现 AOP 的配置类-->
+    <aop:aspectj-autoproxy/>
+
+    <bean id="foodService" class="service.Impl.FoodServiceImpl"/>
+
+    <bean id="logBeforeAdvice" class="aop.LogBeforeAdvice">
+        <!--如果需要配置参数，和普通的 bean 一样操作-->
+        <property name="parameter" value="true"/>
+    </bean>
+
+    <bean id="logRetureAdvice" class="aop.LogRetureAdvice"/>
+</beans>

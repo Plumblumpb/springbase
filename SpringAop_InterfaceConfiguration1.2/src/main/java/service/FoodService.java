@@ -8,4 +8,5 @@ package service;
 public interface FoodService {
     public void makeNoodle(String noodle);
     public void makeChicken();
+    public String  makeFish(String fish);
 }

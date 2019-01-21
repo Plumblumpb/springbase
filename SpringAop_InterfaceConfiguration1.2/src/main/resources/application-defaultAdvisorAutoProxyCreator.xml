@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+
+    <bean id="foodService"  class="service.Impl.FoodServiceImpl"/>
+    <bean id="logBeforeAdvice" class="aop.LogBeforeAdvice"/>
+    <bean id="logRetureAdvice" class="aop.LogRetureAdvice"/>
+
+    <!--advisor，方法拦截器2-->
+    <bean id="logAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <!--advisor实例的内部会有一个advice-->
+        <property name="advice" ref="logBeforeAdvice"/>
+        <!--只有下面的方法会被拦截-->
+        <property name="pattern" value="service.Impl.*"/>
+    </bean>
+    <!--代理类方式1-->
+    <bean id="foodProxy" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <!--代理类方式1-->
+</beans>

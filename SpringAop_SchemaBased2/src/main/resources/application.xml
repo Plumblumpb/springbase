@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="foodService" class="service.Impl.FoodServiceImpl"/>
+
+    <bean id="logBeforeAdvice" class="aop.LogBeforeAdvice">
+        <!--如果需要配置参数，和普通的 bean 一样操作-->
+        <property name="parameter" value="true"/>
+    </bean>
+
+    <bean id="logRetureAdvice" class="aop.LogRetureAdvice"/>
+    <aop:config>
+        <!--下面这两个 Pointcut 是全局的，可以被所有的 Aspect 使用-->
+        <!--这里示意了两种 Pointcut 配置-->
+        <aop:pointcut id="logArgsPointcut" expression="execution(* service.*.*(..))" />
+        <aop:pointcut id="logResultPointcut" expression="aop.SystemArchitecture.businessService()" />
+
+        <aop:aspect ref="logBeforeAdvice">
+            <!--在这里也可以定义 Pointcut，不过这是局部的，不能被其他的 Aspect 使用-->
+            <aop:pointcut id="internalPointcut"
+                          expression="aop.SystemArchitecture.businessService()" />
+            <aop:before method="logArgs" pointcut-ref="internalPointcut" />
+        </aop:aspect>
+
+        <aop:aspect ref="logBeforeAdvice">
+            <aop:before method="logArgs" pointcut-ref="logArgsPointcut" />
+        </aop:aspect>
+
+        <aop:aspect ref="logRetureAdvice">
+            <aop:after-returning method="logResult" returning="result" pointcut-ref="logResultPointcut" />
+        </aop:aspect>
+
+
+    </aop:config>
+
+</beans>

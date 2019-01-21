@@ -11,16 +11,16 @@ import service.FoodService;
  */
 public class Main {
 
+
+
     public static void main(String[] args) {
         // 用我们的配置文件来启动一个 ApplicationContext
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application.xml");
 //        ApplicationContext context1 = new FileSystemXmlApplicationContext("D:application.xml");
 //        ApplicationContext context2 = new AnnotationConfigApplicationContext("classpath:application.xml");
         System.out.println("context 启动成功");
-        FoodService foodService = (FoodService) context.getBean("foodProxy");
+        FoodService foodService = context.getBean(FoodService.class);
         foodService.makeNoodle("noodle");
         foodService.makeFish("fish");
-
-
     }
 }

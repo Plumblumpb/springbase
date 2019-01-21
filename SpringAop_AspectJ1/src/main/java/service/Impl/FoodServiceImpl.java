@@ -9,11 +9,15 @@ import service.FoodService;
  */
 public class FoodServiceImpl implements FoodService {
 
-    public void makeNoodle() {
-        System.out.println("make noodle");
+    public void makeNoodle(String noodle) {
+        System.out.println("make "+noodle);
     }
 
     public void makeChicken() {
         System.out.println("make Chicken");
+    }
+
+    public String makeFish(String fish) {
+        return fish;
     }
 }
